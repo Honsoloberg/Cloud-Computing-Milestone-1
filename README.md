@@ -11,6 +11,6 @@
 1. Labels.csv
 2. Producer.py
     - Iterates over the "Labels.csv" and formats the data into a JSON format.
-    - Publishes the JSON objects to a google cloud topic
+    - Publishes the JSON objects to a google cloud topic.
 3. Consumer.py
-    - Subscribes to a google cloud topic and consumes the records then formats them to the terminal
+    - Subscribes to a google cloud topic and consumes the JSON messages then formats the data to the termial.

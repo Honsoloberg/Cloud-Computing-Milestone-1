@@ -25,13 +25,14 @@ try:
         csvFile = csv.DictReader(file)
 
         for line in csvFile:
-
+            # Convert an individual row in the CSV into JSON
             message = json.dumps(line)
 
             # print("")
             # print(message)
             # print("")
 
+            # Serialize the JSON string
             bMessage = message.encode("utf-8")
 
             try:    
@@ -44,7 +45,7 @@ try:
                 print("Failed to publish the message")
             
             time.sleep(.5)
-            # break 
+            break 
 except KeyboardInterrupt:
     publisher.stop()
     exit(0)

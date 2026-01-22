@@ -20,18 +20,18 @@ print(f"Listening for messages on {subscription_path}..\n")
 # 0: time || 1: profileName || 2: temperature || 3: humidity || 4: pressure
 
 def callback(message: pubsub_v1.subscriber.message.Message) -> None:
-    # convert from bytes to dictionary (deserialization)
+    # deserialize the message back into JSON then convert it to a Python dictionary
     message_data = json.loads(message.data.decode('utf-8'))
 
     #break each data point into a formatted string
-    location = "" if message_data["profileName"] == "" else "Location: {}".format(message_data["profileName"])
-    time = "" if message_data["time"] == "" else "Time: {}".format(message_data["time"])
-    temp = "" if message_data["temperature"] == "" else "Temperature: {}".format(message_data["temperature"])
-    humid = "" if message_data["humidity"] == "" else "Humidity: {}".format(message_data["humidity"])
-    pressure = "" if message_data["pressure"] == "" else "Pressure: {}".format(message_data["pressure"])
+    location = "" if message_data["profileName"] == "" else "Location: {}\n".format(message_data["profileName"])
+    time = "" if message_data["time"] == "" else "Time: {}\n".format(message_data["time"])
+    temp = "" if message_data["temperature"] == "" else "Temperature: {}\n".format(message_data["temperature"])
+    humid = "" if message_data["humidity"] == "" else "Humidity: {}\n".format(message_data["humidity"])
+    pressure = "" if message_data["pressure"] == "" else "Pressure: {}\n".format(message_data["pressure"])
 
     #format final output by combining formatted strings
-    print("{}\n{}\n{}\n{}\n{}".format(time, location, temp, humid, pressure))
+    print("{}{}{}{}{}".format(time, location, temp, humid, pressure))
     print("<---------------------------------------------------------------------->")
    
     message.ack()
@@ -39,6 +39,7 @@ def callback(message: pubsub_v1.subscriber.message.Message) -> None:
 with subscriber:
     streaming_pull_future = subscriber.subscribe(subscription_path, callback=callback)
     try:
+        # wait without result() so Keyboard Interrupts are now blocked
         while True:
             sleep(1)
     except KeyboardInterrupt:
