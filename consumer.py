@@ -7,7 +7,7 @@ from time import sleep
 files=glob.glob("*.json")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]=files[0]
 
-project_id="canvas-griffin-485115-v8"
+project_id="canvas-griffin-485115-v8" # Needs to be changed when used in different Projects
 topic_name = "smartMeter"
 subscription_id = "smartMeter-sub"
 
