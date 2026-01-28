@@ -13,7 +13,6 @@ topic_name = "weather-data"
 
 publisher = pubsub_v1.PublisherClient()
 topic_path = publisher.topic_path(project_id, topic_name)
-print(f"Published messages with ordering keys to {topic_path}.")
 
 try:
     with open("Labels.csv", 'r') as file:
@@ -40,7 +39,7 @@ try:
             sleep(.5) # wait is to ensure no messages are missed in sending. As the "future.result()" can still fail.
 
             # Uncomment the below line to send only one line (for testing)
-            break
+            # break
 except KeyboardInterrupt:
     #if the user wants to manually stop the script. Catch the the Interrupt then close the script.
     publisher.stop()
